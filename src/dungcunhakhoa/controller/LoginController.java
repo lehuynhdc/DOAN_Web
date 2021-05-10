@@ -1,8 +1,6 @@
 package dungcunhakhoa.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -36,8 +34,19 @@ public class LoginController {
 		return "index";
 	}
 	
+	@RequestMapping("logout")
+	public String logout(HttpSession SE) {
+		SE.setAttribute("username",null);
+		SE.setAttribute("role",null);
+	
+		return "redirect:index.htm";
+	}
+	
 	@RequestMapping("home")
-	public String home() {
+	public String home(ModelMap model,HttpSession session) {		
+		Session session2 = factory.getCurrentSession();
+		User user = (User) session2.get(User.class,(String) session.getAttribute("username"));
+		model.addAttribute("user", user);
 		return "home";
 	}
 	
@@ -66,7 +75,8 @@ public class LoginController {
 			User user2 = (User) list.get(0);
 			if(user.getUsername().equals(user2.getUsername()) && user.getPassword().equals(user2.getPassword())) {
 				SE.setAttribute("username", user.getUsername());
-				model.addAttribute("user", user);
+				SE.setAttribute("role", user2.getPhanquyen().getIdpq());
+				model.addAttribute("user", user2);
 				return "home";
 			}
 			else {

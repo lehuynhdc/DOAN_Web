@@ -2,6 +2,7 @@
     pageEncoding="utf-8"%>
 	<%@include file="/common/taglib.jsp"%>
 	<%@include file="home.jsp"%>
+	<base href="${pageContext.servletContext.contextPath}/">
 <%-- <!doctype html>
 <html lang="en">
   <head>
@@ -10,29 +11,15 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>Quản lí User</title>
-	<base href="${pageContext.servletContext.contextPath}/">
+    <title>Quản lí nhân viên</title>
+	
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-static/">
 
     
 
     <!-- Bootstrap core CSS -->
 <link href="resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+    
 
     
     <!-- Custom styles for this template -->
@@ -49,7 +36,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="user/insert.htm">Insert</a>
+          <a class="nav-link active" aria-current="page" href="nhanvien/insert.htm">Insert</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -66,54 +53,55 @@
   </div>
 </nav> --%>
 
+<style>
+		.container {
+		  width: 50%;
+		  clear: both;
+		}
+		
+		.container input {
+		  width: 100%;
+		  clear: both;
+		}
+    </style>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
 <div class="main-panel">
 <div class="content">
 <div class="container-fluid">
 	<div class="bg-light p-5 rounded">
-		<c:if test="${message != null}">
-			<div class="alert alert-success" role="alert">
-				${message}
-			</div>
-		</c:if>
-  		<table class="table table-striped">
-			<tr>
-				<th>Họ</th>
-				<th>Tên</th>
-				<th>Username</th>
-				<th>Password</th>
-				<th>Chức vụ</th>
-				<td></td>
-				<td></td>
-			</tr>
-			<c:forEach var="user" items="${users}">
-				<tr>
-					<td>${user.nhanvien.ho}</td>
-					<td>${user.nhanvien.ten}</td>
-					<td>${user.username}</td>
-					<td>${user.password}</td>
-					<td>${user.phanquyen.tenpq}</td>
-					<td>
-						<a href="user/delete/${user.username}.htm">
-							<button class="btn btn-success">
-								<img alt="" src="resources/assets/img/delete.png"> 
-								Delete
-							</button>
-						</a>
-					</td>
-					<td>
-						<a href="user/update/${user.username}.htm">
-							<button class="btn btn-success">
-								<img alt="" src="resources/assets/img/update.png"> 
-								Update
-							</button>
-						</a>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
+  		<form:form action="mathang/insert.htm" modelAttribute="mh" method="post">
+  			<div class="container">
+	  			<div class="mb-3">
+			      <!-- <label for="disabledTextInput" class="form-label">Mã nhân viên</label> -->
+			      <form:input path="idmathang" type="hidden"/>
+			    </div>
+			    <div class="mb-3">
+			      <label for="disabledTextInput" class="form-label">Tên mặt hàng</label>
+			      <form:input path="tenmathang"/>
+			    </div>
+			    <div>
+			    	<button class="btn btn-success">Insert</button>
+			    </div> 
+		    </div> 
+  		</form:form>
 	</div>
-</div>
-</div>
+	</div>
+	</div>
 </div>
 </body>
 </html>

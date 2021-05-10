@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="mathang/index.htm">
                  <p style="text-align:center;">Quản lí Mặt Hàng</p>
             </a>
           </li>

@@ -58,9 +58,30 @@
 					<td>${nv.user.username}</td>
 					<td>${nv.gioitinh}</td>
 					<td>${nv.diachi}</td>
-					<td><a href="nhanvien/delete/${nv.idnv}.htm">Delete</a></td>
-					<td><a href="nhanvien/update/${nv.idnv}.htm">Update</a></td>
-					<td><a href="user/insert/${nv.idnv}.htm">Create User</a></td>
+					<td>
+					<a href="nhanvien/delete/${nv.idnv}.htm">
+						<button class="btn btn-success">
+							<img alt="" src="resources/assets/img/delete.png"> 
+							Delete
+						</button>
+					</a>
+					</td>
+					<td>
+						<a href="nhanvien/update/${nv.idnv}.htm">
+							<button class="btn btn-success">
+								<img alt="" src="resources/assets/img/update.png"> 
+								Update
+							</button>
+						</a>
+					</td>
+					<td>
+						<a href="user/insert/${nv.idnv}.htm">
+							<button class="btn btn-success">
+								<img alt="" src="resources/assets/img/createUser.png"> 
+								Create User
+							</button>
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

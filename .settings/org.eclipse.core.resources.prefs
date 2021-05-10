@@ -4,5 +4,6 @@ encoding//WebContent/WEB-INF/views/index.jsp=UTF-8
 encoding//src/dcnk/entity/NhanVien.java=UTF-8
 encoding//src/dcnk/entity/User.java=UTF-8
 encoding//src/dungcunhakhoa/controller/LoginController.java=UTF-8
+encoding//src/dungcunhakhoa/controller/MatHangController.java=UTF-8
 encoding//src/dungcunhakhoa/controller/NhanVienController.java=UTF-8
 encoding//src/dungcunhakhoa/controller/UserController.java=UTF-8

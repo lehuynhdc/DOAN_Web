@@ -47,7 +47,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="mathang/index.htm">
                  <p style="text-align:center;">Quản lí Mặt Hàng</p>
             </a>
           </li>
@@ -112,7 +112,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="user/profile.htm">Profile</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="index.htm">Log out</a>
+                  <a class="dropdown-item" href="logout.htm">Log out</a>
                 </div>
               </li>
             </ul>

@@ -1,6 +1,7 @@
 package dcnk.entity;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,4 +65,14 @@ public class MatHang {
 	public void setLichSuHu(Collection<LichSuHu> lichSuHu) {
 		this.lichSuHu = lichSuHu;
 	}
+	
+	//ham xu li
+		public String autoSetIDMH(List<String> list) {
+			String idMH = null;
+			for(String id:list) {
+				idMH = id;
+			}	
+			idMH = "MH" + String.valueOf(Integer.parseInt(idMH.split("H")[1]) + 1);
+			return idMH;
+		}
 }

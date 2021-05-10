@@ -77,40 +77,37 @@
 		</c:if>
   		<table class="table table-striped">
 			<tr>
-				<th>Họ</th>
-				<th>Tên</th>
-				<th>Username</th>
-				<th>Password</th>
-				<th>Chức vụ</th>
+				<th>Mã mặt hàng</th>
+				<th>Tên mặt hàng</th>
 				<td></td>
 				<td></td>
 			</tr>
-			<c:forEach var="user" items="${users}">
+			<c:forEach var="mathang" items="${items}">
 				<tr>
-					<td>${user.nhanvien.ho}</td>
-					<td>${user.nhanvien.ten}</td>
-					<td>${user.username}</td>
-					<td>${user.password}</td>
-					<td>${user.phanquyen.tenpq}</td>
+					<td>${mathang.idmathang}</td>
+					<td>${mathang.tenmathang}</td>
 					<td>
-						<a href="user/delete/${user.username}.htm">
-							<button class="btn btn-success">
-								<img alt="" src="resources/assets/img/delete.png"> 
-								Delete
-							</button>
-						</a>
-					</td>
-					<td>
-						<a href="user/update/${user.username}.htm">
+						<a href="mathang/update/${mathang.idmathang}.htm">
 							<button class="btn btn-success">
 								<img alt="" src="resources/assets/img/update.png"> 
 								Update
 							</button>
 						</a>
 					</td>
+					<td>
+						<a href="mathang/delete/${mathang.idmathang}.htm">
+							<button class="btn btn-success">
+								<img alt="" src="resources/assets/img/delete.png"> 
+								Delete
+							</button>
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
+		<form action="mathang/insert.htm" method="get">
+			<button class="btn btn-success">Insert</button>
+		</form>
 	</div>
 </div>
 </div>

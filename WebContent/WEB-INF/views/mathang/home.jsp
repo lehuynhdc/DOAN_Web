@@ -38,12 +38,12 @@
               <p style="text-align:center;">Quản lí Nhân Viên</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="user/index.htm">
                  <p style="text-align:center;">Quản lí User</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="mathang/index.htm">
                  <p style="text-align:center;">Quản lí Mặt Hàng</p>
             </a>

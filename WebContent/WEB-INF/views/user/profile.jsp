@@ -65,6 +65,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
+      <div>${sessionScope['username']}</div>
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -273,6 +274,7 @@
             <img src="resources/assets/img/sidebar-4.jpg" alt="">
           </a>
         </li>
+
         <!-- <li class="button-container">
           <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
         </li> -->
