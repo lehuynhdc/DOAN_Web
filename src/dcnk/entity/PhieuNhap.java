@@ -2,6 +2,7 @@ package dcnk.entity;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,9 @@ public class PhieuNhap {
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date ngaynhap;
 	
-	private String idnv;
+	@ManyToOne
+	@JoinColumn(name="idnv")
+	private NhanVien nv;
 	
 	@ManyToOne
 	@JoinColumn(name="idncc")
@@ -50,12 +53,12 @@ public class PhieuNhap {
 		this.ngaynhap = ngaynhap;
 	}
 
-	public String getIdnv() {
-		return idnv;
+	public NhanVien getNv() {
+		return nv;
 	}
 
-	public void setIdnv(String idnv) {
-		this.idnv = idnv;
+	public void setNv(NhanVien nv) {
+		this.nv = nv;
 	}
 
 	public NCC getNcc() {
@@ -73,5 +76,15 @@ public class PhieuNhap {
 	public void setCtPhieuNhap(Collection<CTPhieuNhap> ctPhieuNhap) {
 		this.ctPhieuNhap = ctPhieuNhap;
 	}
+	
+	//ham xu li
+		public String autoSetIDPN(List<String> list) {
+			String idPN = null;
+			for(String id:list) {
+				idPN = id;
+			}	
+			idPN = "PN" + String.valueOf(Integer.parseInt(idPN.split("N")[1]) + 1);
+			return idPN;
+		}
 	
 }

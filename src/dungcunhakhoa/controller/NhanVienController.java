@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import dcnk.entity.NhanVien;
+import dcnk.entity.User;
 
 @Transactional
 @Controller
@@ -104,12 +105,16 @@ public class NhanVienController {
 	}
 	
 	@RequestMapping(value="delete/{idnv}",method = RequestMethod.GET)
-	public String delete(ModelMap model, @PathVariable("idnv") String idnv, @ModelAttribute("nv") NhanVien nv) {
-		Session session = factory.openSession();
+	public String delete(ModelMap model, @PathVariable("idnv") String idnv) {
+		Session session = factory.getCurrentSession();
+		NhanVien nv = (NhanVien) session.get(NhanVien.class, idnv);
+		User user = nv.getUser();
+		session.clear();
+		session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
-			 session.delete(nv);
+			 session.delete(user);
 			 t.commit();
 			 model.addAttribute("message","Delete thành công !");
 		 }

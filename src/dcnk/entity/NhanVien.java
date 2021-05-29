@@ -11,6 +11,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name="nhanvien")
 public class NhanVien {
@@ -28,7 +31,20 @@ public class NhanVien {
 	private User user;
 
 	@OneToMany(mappedBy = "nhanvien",fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private Collection<PhieuMuon> phieuMuon;
+	
+	@OneToMany(mappedBy = "nv",fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private Collection<PhieuNhap> phieuNhap;
+
+	public Collection<PhieuNhap> getPhieuNhap() {
+		return phieuNhap;
+	}
+
+	public void setPhieuNhap(Collection<PhieuNhap> phieuNhap) {
+		this.phieuNhap = phieuNhap;
+	}
 
 	public NhanVien(String idnv, String ho, String ten, User user,String gt) {
 		super();
@@ -112,6 +128,9 @@ public class NhanVien {
 		}	
 		idNV = "NV" + String.valueOf(Integer.parseInt(idNV.split("V")[1]) + 1);
 		return idNV;
+	}
+	public String getTennv() {
+		return this.ho + " " + this.ten;
 	}
 //	public static void main() {
 //		NhanVien nv = new NhanVien();

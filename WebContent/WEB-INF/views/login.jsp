@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
             	<button class="btn btn-primary btn-block" type="submit">Login</button>
-	          	<a href="#" class="forgot">Forgot your username or password?</a>
+	          	<a href="${pageContext.servletContext.contextPath}/mail/form.htm" class="forgot">Forgot your username or password?</a>
             </div>
     	</form:form>
     	 <!-- <form action="register.htm">

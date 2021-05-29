@@ -1,7 +1,10 @@
 package dungcunhakhoa.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dcnk.entity.NhanVien;
@@ -28,6 +32,16 @@ import dcnk.entity.User;
 public class UserController {
 	@Autowired
 	SessionFactory factory;
+	
+	@Autowired
+	ServletContext servlet;
+	
+	@ModelAttribute("user")
+	public User user(HttpSession session2) {
+		Session session = factory.getCurrentSession();
+		User user = (User) session.get(User.class, (String) session2.getAttribute("username"));
+		return user;
+	}
 	
 	@RequestMapping("index")
 	public String index(ModelMap model) {
@@ -128,8 +142,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="delete/{username}",method = RequestMethod.GET)
-	public String delete(ModelMap model, @PathVariable("username") String username, @ModelAttribute("user") User user) {
-		Session session = factory.openSession();
+	public String delete(ModelMap model, @PathVariable("username") String username) {
+		Session session = factory.getCurrentSession();
+		User user = (User) session.get(User.class, username);
+		session.clear();
+		session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		try {
@@ -152,10 +169,33 @@ public class UserController {
 		return "user/index";
 	}
 	
-	@RequestMapping("profile")
+	@RequestMapping(value = "profile",method = RequestMethod.GET)
 	public String profile() {
-		
 		return "user/profile";
+	}
+	@RequestMapping(value = "profile",method = RequestMethod.POST)
+	public String profile(RedirectAttributes re,
+			@RequestParam("fileAvata") MultipartFile fileAvata,
+			HttpSession session) {
+		if(fileAvata.isEmpty()) {
+			re.addFlashAttribute("message", "Vui lòng chọn file!");
+			return "redirect:profile.htm";
+		}
+		else {
+			try {
+//				String baseDir = uploadFile.basePath;
+//				String photoPath = baseDir + File.separator + photo.getOriginalFilename();
+//				String cvPath = baseDir + File.separator + cv.getOriginalFilename();
+				String photoPath = servlet.getRealPath("/images/" + session.getAttribute("username") + ".png");
+				fileAvata.transferTo(new File(photoPath));
+				re.addFlashAttribute("mesage", "Thành công !");
+				return "redirect:profile.htm";
+			}
+			catch (Exception e) {
+				re.addFlashAttribute("mesage", "Lỗi lưu file !");
+			}
+		}
+		return "redirect:profile.htm";
 	}
 }
 

@@ -32,7 +32,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="home.htm">
               <p style="text-align:center;">HOME</p>
             </a>
           </li>
@@ -52,12 +52,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="phieunhap/index.htm">
                  <p style="text-align:center;">Quản lí Phiếu Nhập</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="phieumuon/index.htm">
                  <p style="text-align:center;">Quản lí Phiếu Mượn</p>
             </a>
           </li>
