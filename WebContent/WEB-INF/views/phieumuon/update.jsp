@@ -30,6 +30,7 @@
       }
     </style>
 
+
 <div class="main-panel">
 <div class="content">
 <div class="container-fluid">
@@ -43,12 +44,13 @@
 				</c:if>
 				<form action="phieumuon/update.htm" method="post">
 			    <div class="mb-3">
-			      <label for="disabledTextInput" class="form-label">Tên nhân viên</label>
-	    		  <select class="form-select" name="idnv">
+			      <label for="disabledTextInput" class="form-label">Tên nhân viên: ${nv.tennv}</label>
+			      <input name="idnv" value="${nv.idnv}" type="hidden"/>
+	    		  <%-- <select class="form-select" name="idnv">
 			        <c:forEach var="nv" items="${nvs}">
 				        <option value="${nv.idnv}" label="${nv.tennv}" ${phieunhap.nv.idnv==nv.idnv?'selected':''}>
 			        </c:forEach>
-			      </select>
+			      </select> --%>
 			    </div>
 			    <div class="mb-3">
 					<!-- <label for="disabledTextInput" class="form-label">Đã trả</label> -->
@@ -79,7 +81,7 @@
 							<td>
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-success" 
-								data-bs-toggle="modal" data-bs-target="#editModal" id="edit" onclick="showModal(${ctphieumuon.id}, ${ctphieumuon.soluong})">
+								data-bs-toggle="modal" data-bs-target="#editModal" id="edit" onclick="showModal(${ctphieumuon.id}, ${ctphieumuon.soluong},'${ctphieumuon.mathang.idmathang}')">
 								  Edit
 								</button>
 							</td>
@@ -92,7 +94,7 @@
 			    <div>
 			    	<button type="button" class="btn btn-success" 
 								data-bs-toggle="modal" data-bs-target="#addModal" id="add">
-					+</button>
+					Thêm Mặt Hàng</button>
 			    </div> 
 		    </div> 
 	</div>
@@ -108,12 +110,14 @@
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
       <div class="modal-body">
-      	<form action="phieumuon/updates.htm" method="post" >
-      		<input name="id" id="id" type="hidden"/>	
+      	<form action="phieumuon/updates.htm" method="post" onsubmit="return ktEdit()">
+      		<input name="id" id="id" type="hidden"/>
+      		
       		<input name="idpm" value="${phieumuon.idpm}" type="hidden"/>
       		<div class="mb-3">
 				<label for="disabledTextInput" class="form-label">Số lượng</label>
 	      		<input name="soluong" id="soluong" type="number" required/>
+	      		<input name="idmh1" id="idmh1" type="hidden"/>	
       		</div>
       		<div class="modal-footer">
 		        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -132,11 +136,11 @@
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
       <div class="modal-body">
-      	<form action="phieumuon/add.htm" method="post" >	
+      	<form action="phieumuon/add.htm" method="post"  onsubmit="return ktThem()">	
       		<input name="idpm" value="${phieumuon.idpm}" type="hidden"/>
       		<div class="mb-3">
 			      <label for="disabledTextInput" class="form-label">Tên mặt hàng</label>
-	    		  <select class="dropdown-select" name="idmh">
+	    		  <select class="dropdown-select" name="idmh" id="idmh">
 			        <c:forEach var="mh" items="${mhs}">
 				        <option value="${mh.idmathang}" label="${mh.tenmathang}">
 			        </c:forEach>
@@ -157,10 +161,39 @@
 </div>
 <script src="resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-	function showModal(id, soluong){
+	function showModal(id, soluong, idmh1){
 		document.getElementById("id").value=id;
 		document.getElementById("soluong").value=soluong;
+		document.getElementById("idmh1").value = idmh1;
 	}
+	function ktThem(){
+		  var id = document.getElementById("idmh").value;
+		  var sl = document.getElementById("soluong2").value;
+		  var dieukien = 0;
+		  <c:forEach var="mathang" items="${mhs}">
+		    if(id == "${mathang.idmathang}"){
+			    dieukien += ${mathang.SLConDungDuocTrongNgay};
+			    if(sl > dieukien){
+				    alert("Số Lượng Đã Vượt Qua Giới Hạn Cho Phép");
+				    return false;
+			    }
+		   }
+		  </c:forEach>
+		}
+	function ktEdit(){
+		  var id = document.getElementById("idmh").value;
+		  var sl = document.getElementById("soluong").value;
+		  var dieukien = 0;
+		  <c:forEach var="mathang" items="${mhs}">
+		    if(id == "${mathang.idmathang}"){
+			    dieukien += ${mathang.SLConDungDuocTrongNgay};
+			    if(sl > dieukien){
+				    alert("Số Lượng Mượn Đã Vượt Qua Giới Hạn Cho Phép");
+				    return false;
+			    }
+		   }
+		  </c:forEach>
+		}
 </script>
 </body>
 </html>

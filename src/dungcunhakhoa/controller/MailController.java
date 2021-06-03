@@ -30,8 +30,11 @@ public class MailController {
 	public String index() {
 		return "mail/form";
 	}
+	
+	//cấp lại mật khẩu
 	@RequestMapping("send")
-	public String send(ModelMap model,RedirectAttributes re ,@RequestParam("username")String username,@RequestParam("to")String to) {
+	public String send(ModelMap model,RedirectAttributes re ,@RequestParam("username")String username,
+			@RequestParam("to")String to) {
 		String from = "n18dcat017@student.ptithcm.edu.vn";
 		String subject = "Change password";
 		String body = "New password: 123456789";

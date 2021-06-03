@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="resources/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Quản lí nhân viên</title>
+  <title>Thống Kê</title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -33,7 +33,7 @@
               <p style="text-align:center;">HOME</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="nhanvien/index.htm">
               <p style="text-align:center;">Quản lí Nhân Viên</p>
             </a>
@@ -58,7 +58,7 @@
                  <p style="text-align:center;">Quản lí Phiếu Mượn</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="thongke/index.htm">
                  <p style="text-align:center;">Thống kê</p>
             </a>

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -29,6 +31,7 @@ import dcnk.entity.NCC;
 import dcnk.entity.NhanVien;
 import dcnk.entity.PhieuMuon;
 import dcnk.entity.PhieuNhap;
+import dcnk.entity.User;
 
 @Transactional
 @Controller
@@ -38,8 +41,18 @@ public class PhieuMuonController {
 	SessionFactory factory;
 	
 	@RequestMapping("index")
-	public String index(ModelMap model) {
+	public String index(ModelMap model,
+			HttpServletRequest request) {
 		Session session = factory.getCurrentSession();
+		HttpSession session1 = request.getSession();
+		User user = (User) session.get(User.class, session1.getAttribute("username").toString());		
+		if(user.getPhanquyen().getIdpq().equals("PQ2")) {
+			String hql = "from PhieuMuon where idnv = '"+ user.getNhanvien().getIdnv() +"'";
+			Query query = session.createQuery(hql);
+			List<PhieuNhap> list = query.list();
+			model.addAttribute("nPhieu", list);
+			return "phieumuon/index";
+		}
 		String hql = "from PhieuMuon";
 		Query query = session.createQuery(hql);
 		List<PhieuNhap> list = query.list();
@@ -47,6 +60,7 @@ public class PhieuMuonController {
 		return "phieumuon/index";
 	}
 	
+	//trả 1 phiếu mượn
 	@RequestMapping(value="return/{idpm}", params = {"datra"},method = RequestMethod.GET)
 	public String Return(ModelMap model, 
 			@PathVariable("idpm") String idpm,
@@ -137,14 +151,18 @@ public class PhieuMuonController {
 		return "redirect:index.htm";
 	}
 	
+	//chỉnh sửa 1 phiếu mượn
 	@RequestMapping(value="update/{idpm}",method = RequestMethod.GET)
 	public String update(ModelMap model, 
-			@PathVariable("idpm") String idpm) {
+			@PathVariable("idpm") String idpm,
+			RedirectAttributes re) {
 		Session session = factory.getCurrentSession();
 		PhieuMuon phieumuon = (PhieuMuon) session.get(PhieuMuon.class,idpm);
-		String hql1 = "from NhanVien";
-		Query query1 = session.createQuery(hql1);
-		List<NhanVien> nv = query1.list();
+		if(phieumuon.isDatra()) {
+			re.addFlashAttribute("message", "Phiếu mượn này đã trả không thể chỉnh sửa!");
+			return "redirect:../index.htm";
+		}
+		NhanVien nv = phieumuon.getNhanvien();
 		String hql2 = "from CTPhieuMuon where idpm = '" + idpm +"'";
 		Query query2 = session.createQuery(hql2);
 		List<CTPhieuMuon> ctPM = query2.list();
@@ -152,7 +170,7 @@ public class PhieuMuonController {
 		Query query3 = session.createQuery(hql3);
 		List<MatHang> mh = query3.list();
 		model.addAttribute("phieumuon", phieumuon);
-		model.addAttribute("nvs", nv);
+		model.addAttribute("nv", nv);
 		model.addAttribute("ctPMs", ctPM);
 		model.addAttribute("mhs", mh);
 		model.addAttribute("datra", phieumuon.isDatra());
@@ -166,7 +184,7 @@ public class PhieuMuonController {
 			@RequestParam("idnv") String idnv,
 			@RequestParam("datra") String datra) {
 		Boolean daTra;
-		if(datra.equals("0")) {
+		if(datra.equals("false")) {
 			daTra = false;
 		}
 		else daTra = true;
@@ -219,6 +237,7 @@ public class PhieuMuonController {
 		return "redirect:update/"+ idpm +".htm";
 	}
 	
+	//xóa 1 phiếu mượn
 	@RequestMapping(value="delete/{idpm}",method = RequestMethod.GET)
 	public String delete(RedirectAttributes re,ModelMap model, @PathVariable("idpm") String idpm, @ModelAttribute("phieumuon") PhieuMuon phieumuon) {
 		Session session = factory.openSession();
@@ -239,6 +258,7 @@ public class PhieuMuonController {
 		return "redirect:../index.htm";
 	}
 	
+	//xem thông tin 1 phiếu mượn
 	@RequestMapping(value="info/{idpm}",method = RequestMethod.GET)
 	public String info(ModelMap model, @PathVariable("idpm") String idpm) {
 		Session session = factory.getCurrentSession();
@@ -251,6 +271,7 @@ public class PhieuMuonController {
 		return "phieumuon/info";	
 	}
 	
+	//thêm 1 phiếu mượn
 	@RequestMapping(value="insert",method = RequestMethod.GET)
 	public String insert(ModelMap model) {
 		Session session = factory.getCurrentSession();
@@ -263,7 +284,7 @@ public class PhieuMuonController {
 		PhieuMuon pm = new PhieuMuon();
 		pm.setIdpm(pm.autoSetIDPM(list));
 		model.addAttribute("pm", pm);
-		model.addAttribute("nvs", nv);
+		model.addAttribute("nv", nv);
 		model.addAttribute("datra", "False");
 		return "phieumuon/insert";	
 	}

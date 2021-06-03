@@ -107,7 +107,7 @@
 	        idhu = document.getElementById("hu_${ct.id}").value;//Lấy input vd: id=5 thì id="hu_5"
 	        idmuon = ${ct.soluong};//lấy số lượng từ database
 	        if (idhu > idmuon || idhu < 0){
-	            alert("Lỗi");
+	            alert("Số lượng hư phải lớn hơn 0 và nhỏ hơn hoặc bằng số lượng đã mượn !!!");
 	            return false;
 	        }
 	    </c:forEach>

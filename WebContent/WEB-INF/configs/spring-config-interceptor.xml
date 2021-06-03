@@ -29,6 +29,9 @@
 		 <mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
 			<mvc:mapping path="/nhanvien/**"/>
+			<mvc:mapping path="/phieunhap/**"/>
+			<mvc:mapping path="/thongke/**"/>
+			<mvc:mapping path="/mathang/**"/>
 			<mvc:exclude-mapping path="/user/profile.htm"/>
 			<bean class="dcnk.interceptor.LoggerInterceptor" />
 		</mvc:interceptor>

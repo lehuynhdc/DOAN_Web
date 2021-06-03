@@ -77,7 +77,7 @@ public class PhieuMuon {
 	
 	//ham xu li
 		public String autoSetIDPM(List<String> list) {
-			String idPM = null;
+			String idPM = "PM0";
 			for(String id:list) {
 				idPM = id;
 			}	

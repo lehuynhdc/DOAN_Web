@@ -1,9 +1,11 @@
 package dungcunhakhoa.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -43,16 +45,17 @@ public class PhieuNhapController {
 		return "phieunhap/index";
 	}
 	
+	//chỉnh sửa 1 phiếu nhập
 	@RequestMapping(value="update/{idpn}",method = RequestMethod.GET)
-	public String update(ModelMap model, @PathVariable("idpn") String idpn) {
+	public String update(ModelMap model, 
+			@PathVariable("idpn") String idpn,
+			HttpSession httpSe) {
 		Session session = factory.getCurrentSession();
 		PhieuNhap phieunhap = (PhieuNhap) session.get(PhieuNhap.class,idpn);
 		String hql = "from NCC";
 		Query query = session.createQuery(hql);
 		List<NCC> ncc = query.list();
-		String hql1 = "from NhanVien";
-		Query query1 = session.createQuery(hql1);
-		List<NhanVien> nv = query1.list();
+		NhanVien nv = phieunhap.getNv();
 		String hql2 = "from CTPhieuNhap where idpn = '" + idpn +"'";
 		Query query2 = session.createQuery(hql2);
 		List<CTPhieuNhap> ctPN = query2.list();
@@ -61,7 +64,7 @@ public class PhieuNhapController {
 		List<MatHang> mh = query3.list();
 		model.addAttribute("phieunhap", phieunhap);
 		model.addAttribute("nccs", ncc);
-		model.addAttribute("nvs", nv);
+		model.addAttribute("nv", nv);
 		model.addAttribute("ctPNs", ctPN);
 		model.addAttribute("mhs", mh);
 		return "phieunhap/update";
@@ -124,8 +127,10 @@ public class PhieuNhapController {
 		return "redirect:update/"+ idpn +".htm";
 	}
 	
+	//xóa 1 phiếu nhập
 	@RequestMapping(value="delete/{idpn}",method = RequestMethod.GET)
-	public String delete(RedirectAttributes re,ModelMap model, @PathVariable("idpn") String idpn, @ModelAttribute("phieunhap") PhieuNhap phieunhap) {
+	public String delete(RedirectAttributes re,ModelMap model, @PathVariable("idpn") String idpn, 
+			@ModelAttribute("phieunhap") PhieuNhap phieunhap) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
@@ -144,6 +149,7 @@ public class PhieuNhapController {
 		return "redirect:../index.htm";
 	}
 	
+	//xem thông tin 1 phiếu nhập
 	@RequestMapping(value="info/{idpn}",method = RequestMethod.GET)
 	public String info(ModelMap model, @PathVariable("idpn") String idpn) {
 		Session session = factory.getCurrentSession();
@@ -156,6 +162,7 @@ public class PhieuNhapController {
 		return "phieunhap/info";	
 	}
 	
+	//thêm 1 phiếu nhập
 	@RequestMapping(value="insert",method = RequestMethod.GET)
 	public String insert(ModelMap model) {
 		Session session = factory.getCurrentSession();
@@ -175,7 +182,6 @@ public class PhieuNhapController {
 		model.addAttribute("nvs", nv);
 		return "phieunhap/insert";	
 	}
-	
 	@RequestMapping(value="insert",method = RequestMethod.POST)
 	public String insert(RedirectAttributes re,
 			@RequestParam("idnv") String idnv,

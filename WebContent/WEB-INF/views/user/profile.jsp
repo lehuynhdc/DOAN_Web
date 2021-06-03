@@ -31,7 +31,7 @@
     -->
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="home.htm">
               <p style="text-align:center;">HOME</p>
             </a>
@@ -41,7 +41,7 @@
               <p style="text-align:center;">Quản lí Nhân Viên</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="user/index.htm">
                  <p style="text-align:center;">Quản lí User</p>
             </a>
@@ -59,6 +59,11 @@
           <li class="nav-item">
             <a class="nav-link" href="phieumuon/index.htm">
                  <p style="text-align:center;">Quản lí Phiếu Mượn</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="thongke/index.htm">
+                 <p style="text-align:center;">Thống kê</p>
             </a>
           </li>
         </ul>
@@ -86,7 +91,7 @@
               </div>
             </form>
             <ul class="navbar-nav">
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                   <span class="notification">5</span>
@@ -101,7 +106,7 @@
                   <a class="dropdown-item" href="#">Another Notification</a>
                   <a class="dropdown-item" href="#">Another One</a>
                 </div>
-              </li>
+              </li> -->
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -129,7 +134,7 @@
 		  <img src="images/${user.username}.png" class="card-img-top">
 		  <form action="user/profile.htm" method="post" enctype="multipart/form-data">
 		  <div class="card-body">
-		    <h5 class="card-title" style="text-align: center;">${user.username}</h5>
+		    <h5 class="card-title" style="text-align: center;">Username: ${user.username}</h5>
 		    <p class="card-text" style="text-align: center;">Họ tên: ${user.nhanvien.ho} ${user.nhanvien.ten}</p>
 		    <input type="file" name="fileAvata"/>
 		    <button class="btn btn-success">Upload Avata </button>
@@ -154,12 +159,12 @@
                           <input type="text" class="form-control" disabled>
                         </div>
                       </div> -->
-                      <div class="col-md-3">
+                      <%-- <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
                           <input type="text" class="form-control" value="${user.username}">
                         </div>
-                      </div>
+                      </div> --%>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Pasword</label>
@@ -220,8 +225,8 @@
                         </div>
                       </div>
                     </div> -->
-                    <button type="submit" class="btn btn-success pull-right">Update Profile</button>
-                    <div class="clearfix"></div>
+<!--                     <button type="submit" class="btn btn-success pull-right">Update Profile</button>
+ -->                    <div class="clearfix"></div>
                   </form>
                 </div>
               </div>

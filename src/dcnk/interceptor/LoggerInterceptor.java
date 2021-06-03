@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import dcnk.entity.User;
@@ -16,7 +17,9 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	SessionFactory factory;
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+	public boolean preHandle(HttpServletRequest request, 
+			HttpServletResponse response, 
+			Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();

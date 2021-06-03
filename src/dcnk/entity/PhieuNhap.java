@@ -79,7 +79,7 @@ public class PhieuNhap {
 	
 	//ham xu li
 		public String autoSetIDPN(List<String> list) {
-			String idPN = null;
+			String idPN = "PN0";
 			for(String id:list) {
 				idPN = id;
 			}	

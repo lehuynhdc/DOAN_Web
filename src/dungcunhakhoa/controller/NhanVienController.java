@@ -36,6 +36,7 @@ public class NhanVienController {
 		return "nhanvien/index";
 	}
 	
+	//Thêm nhân viên
 	@RequestMapping(value="insert",method = RequestMethod.GET)
 	public String insert(ModelMap model) {
 		Session session = factory.getCurrentSession();
@@ -72,6 +73,7 @@ public class NhanVienController {
 		return "nhanvien/index";
 	}
 	
+	//chỉnh sửa nhân viên
 	@RequestMapping(value="update/{idnv}",method = RequestMethod.GET)
 	public String update(ModelMap model, @PathVariable("idnv") String idnv) {
 		Session session = factory.getCurrentSession();
@@ -104,6 +106,7 @@ public class NhanVienController {
 		return "nhanvien/index";
 	}
 	
+	//xóa nhân viên
 	@RequestMapping(value="delete/{idnv}",method = RequestMethod.GET)
 	public String delete(ModelMap model, @PathVariable("idnv") String idnv) {
 		Session session = factory.getCurrentSession();
@@ -112,7 +115,6 @@ public class NhanVienController {
 		session.clear();
 		session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		
 		try {
 			 session.delete(user);
 			 t.commit();
@@ -120,7 +122,7 @@ public class NhanVienController {
 		 }
 		 catch (Exception e) {
 			t.rollback();
-			model.addAttribute("message","Delete thất bại !");
+			model.addAttribute("message","Nhân viên chưa có user, delete thất bại !");
 		}
 		 finally {
 			session.close();

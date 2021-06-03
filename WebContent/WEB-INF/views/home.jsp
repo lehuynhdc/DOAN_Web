@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+	<base href="${pageContext.servletContext.contextPath}/">
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="resources/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Home page
-  </title>
+  <title>Home</title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -22,7 +21,6 @@
 </head>
 
 <body class="">
-  <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="white" data-image="resources/assets/img/sidebar-1.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -61,10 +59,15 @@
                  <p style="text-align:center;">Quản lí Phiếu Mượn</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="thongke/index.htm">
+                 <p style="text-align:center;">Thống kê</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="main-panel">
+    
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -86,7 +89,7 @@
               </div>
             </form>
             <ul class="navbar-nav">
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                   <span class="notification">5</span>
@@ -101,7 +104,7 @@
                   <a class="dropdown-item" href="#">Another Notification</a>
                   <a class="dropdown-item" href="#">Another One</a>
                 </div>
-              </li>
+              </li> -->
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
@@ -112,7 +115,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="user/profile.htm">Profile</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="logout.htm">Log out</a>
+                  <a class="dropdown-item" href="index.htm">Log out</a>
                 </div>
               </li>
             </ul>
@@ -122,8 +125,6 @@
       <!-- End Navbar -->
 
       
-    </div>
-  </div>
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
@@ -393,5 +394,29 @@
     });
   </script>
 </body>
-
 </html>
+<div class="main-panel">
+	<div class="content">
+		<div class="container-fluid">
+			<div class="bg-light p-5 rounded">
+				<c:if test="${message != null}">
+					<div class="alert alert-success" role="alert">
+						${message}
+					</div>
+				</c:if>
+				<figure class="figure">
+				  <img src="images/banner-cham-soc-rang-mieng.jpg" class="figure-img img-fluid rounded">
+				  <figcaption class="figure-caption">Cùng Chăm Sóc Răng Miệng Nào</figcaption>
+				</figure>
+				<figure class="figure">
+				  <img src="images/dau_hieu_nhan_biet_nuou_khoe.jpg" class="figure-img img-fluid rounded">
+				  <figcaption class="figure-caption">Nhận Biết Nướu Khỏe</figcaption>
+				</figure>
+				<figure class="figure">
+				  <img src="images/nha-chu.jpg" class="figure-img img-fluid rounded">
+				  <figcaption class="figure-caption">Biểu Hiện Bệnh Nha Chu</figcaption>
+				</figure>
+			</div>
+		</div>
+	</div>
+</div>

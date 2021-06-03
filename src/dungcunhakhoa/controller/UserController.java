@@ -53,23 +53,25 @@ public class UserController {
 		return "user/index";
 	}
 	
+	//tạo mới 1 user 
 	@RequestMapping(value="insert/{idnv}",method = RequestMethod.GET)
-	public String insert(ModelMap model,@PathVariable("idnv") String idnv) {
+	public String insert(ModelMap model,@PathVariable("idnv") String idnv,RedirectAttributes re) {
 		Session session = factory.getCurrentSession();
 		NhanVien nv = (NhanVien) session.get(NhanVien.class, idnv);
+		if(!(nv.getUser() == null)) {
+			re.addFlashAttribute("message", "Nhân viên đã có user");
+			return "redirect:../../nhanvien/index.htm";
+		}
 		PhanQuyen pq = new PhanQuyen("PQ2","Nhân Viên");
-		
 		User user = new User();
 		user.setNhanvien(nv);
 		user.setPhanquyen(pq);
 		model.addAttribute("user", user);
 		return "user/insert";
 	}
-	
 	@RequestMapping(value = "insert",method = RequestMethod.POST)
 	public String insert(ModelMap model, @ModelAttribute("user") User user,
 			@RequestParam("idphanquyen") String idpq,@RequestParam("idnhanvien") String idnv) {
-		
 		Session session1 = factory.getCurrentSession();
 		NhanVien nv = (NhanVien) session1.get(NhanVien.class, idnv);
 		PhanQuyen pq = (PhanQuyen) session1.get(PhanQuyen.class,idpq);
@@ -79,7 +81,6 @@ public class UserController {
 		session1.clear();
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		
 		try {
 			session.update(nv);
 			session.save(user);
@@ -101,7 +102,7 @@ public class UserController {
 		return "user/index";
 	}
 	
-	 
+	 //chỉnh sửa 1 user
 	@RequestMapping(value="update/{username}",method = RequestMethod.GET)
 	public String update(ModelMap model, @PathVariable("username") String username) {
 		Session session = factory.getCurrentSession();
@@ -141,6 +142,7 @@ public class UserController {
 		return "user/index";
 	}
 	
+	//xóa 1 user
 	@RequestMapping(value="delete/{username}",method = RequestMethod.GET)
 	public String delete(ModelMap model, @PathVariable("username") String username) {
 		Session session = factory.getCurrentSession();
@@ -169,6 +171,7 @@ public class UserController {
 		return "user/index";
 	}
 	
+	//xem trang cá nhân
 	@RequestMapping(value = "profile",method = RequestMethod.GET)
 	public String profile() {
 		return "user/profile";
@@ -183,9 +186,6 @@ public class UserController {
 		}
 		else {
 			try {
-//				String baseDir = uploadFile.basePath;
-//				String photoPath = baseDir + File.separator + photo.getOriginalFilename();
-//				String cvPath = baseDir + File.separator + cv.getOriginalFilename();
 				String photoPath = servlet.getRealPath("/images/" + session.getAttribute("username") + ".png");
 				fileAvata.transferTo(new File(photoPath));
 				re.addFlashAttribute("mesage", "Thành công !");

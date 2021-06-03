@@ -43,12 +43,13 @@
 				</c:if>
 				<form action="phieunhap/update.htm" method="post">
 			    <div class="mb-3">
-			      <label for="disabledTextInput" class="form-label">Tên nhân viên</label>
-	    		  <select class="form-select" name="idnv">
+			      <label for="disabledTextInput" class="form-label">Tên nhân viên: ${nv.tennv}</label>
+			      <input name="idnv" value="${nv.idnv}" type="hidden"/>
+	    		  <%-- <select class="form-select" name="idnv">
 			        <c:forEach var="nv" items="${nvs}">
 				        <option value="${nv.idnv}" label="${nv.tennv}" ${phieunhap.nv.idnv==nv.idnv?'selected':''}>
 			        </c:forEach>
-			      </select>
+			      </select> --%>
 			    </div>
 			    
 			    <div class="mb-3">

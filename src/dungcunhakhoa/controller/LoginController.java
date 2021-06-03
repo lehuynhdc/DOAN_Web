@@ -26,7 +26,8 @@ import dcnk.entity.User;
 @Transactional
 @Controller
 public class LoginController {
-	@Autowired
+	
+	@Autowired 
 	SessionFactory factory;
 	
 	@RequestMapping("index")
@@ -34,6 +35,7 @@ public class LoginController {
 		return "index";
 	}
 	
+	//đăng xuất
 	@RequestMapping("logout")
 	public String logout(HttpSession SE) {
 		SE.setAttribute("username",null);
@@ -57,8 +59,11 @@ public class LoginController {
 		return "login";
 	}
  
+	//đăng nhập
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public String login(ModelMap model,@Validated @ModelAttribute("user") User user,BindingResult errors, HttpSession SE) {
+	public String login(ModelMap model,
+			@Validated @ModelAttribute("user") User user,
+			BindingResult errors, HttpSession SE) {
 		if(errors.hasErrors()) {
 			model.addAttribute("message", "Vui lòng sửa các lỗi sau đây !");
 		}
@@ -66,14 +71,14 @@ public class LoginController {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM User where username = '" + user.getUsername() + "'";
 			Query query = session.createQuery(hql);
-			List<Object> list = query.list();
+			List<User> list = query.list();
 			if(list.isEmpty()) {
 				model.addAttribute("message", "Sai tài khoản hoặc mật khẩu");
 				model.addAttribute("user",new User());
 				return "login";
 			}
 			User user2 = (User) list.get(0);
-			if(user.getUsername().equals(user2.getUsername()) && user.getPassword().equals(user2.getPassword())) {
+			if(user.getUsername().equals(user2.getUsername()) && user.getPassword().equals(user2.getPassword())){
 				SE.setAttribute("username", user.getUsername());
 				SE.setAttribute("role", user2.getPhanquyen().getIdpq());
 				model.addAttribute("user", user2);

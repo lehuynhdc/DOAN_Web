@@ -1,5 +1,6 @@
 package dungcunhakhoa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -31,11 +32,12 @@ public class MatHangController {
 		Session session = factory.getCurrentSession();
 		String hql = "from MatHang";
 		Query query = session.createQuery(hql);
-		List<NhanVien> list = query.list();
+		List<MatHang> list = query.list();
 		model.addAttribute("items", list);
 		return "mathang/index";
 	}
 	
+	//thêm 1 mặt hàng
 	@RequestMapping(value="insert",method = RequestMethod.GET)
 	public String insert(ModelMap model) {
 		Session session = factory.getCurrentSession();
@@ -72,6 +74,7 @@ public class MatHangController {
 		return "mathang/index";
 	}
 	
+	//chỉnh sửa 1 mặt hàng
 	@RequestMapping(value="update/{idmathang}",method = RequestMethod.GET)
 	public String update(ModelMap model, @PathVariable("idmathang") String idmathang) {
 		Session session = factory.getCurrentSession();
@@ -128,4 +131,5 @@ public class MatHangController {
 		model.addAttribute("items", list);
 		return "mathang/index";
 	}
+
 }
