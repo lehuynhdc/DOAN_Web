@@ -36,7 +36,7 @@
 					<td>
 						<a href="phieumuon/info/${phieumuon.idpm}.htm">
 							<button class="btn btn-success">
-								<img alt="" src="resources/assets/img/delete.png"> 
+								<img alt="" src="resources/assets/img/information.png"> 
 								InFo
 							</button>
 						</a>

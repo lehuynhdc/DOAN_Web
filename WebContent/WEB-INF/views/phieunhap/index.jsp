@@ -30,7 +30,7 @@
 					<td>
 						<a href="phieunhap/info/${phieunhap.idpn}.htm">
 							<button class="btn btn-success">
-								<img alt="" src="resources/assets/img/delete.png"> 
+								<img alt="" src="resources/assets/img/information.png"> 
 								InFo
 							</button>
 						</a>
